@@ -23,14 +23,23 @@ type (
 )
 
 func main() {
+	// Instantiate Echo.
 	e := echo.New()
 
-	e.Use(middleware.RequestID())
-	e.Use(middleware.Logger())
-	e.Use(middleware.Recover())
+	// Set up middlewares.
+	e.Use(middleware.RequestID()) 	// https://echo.labstack.com/middleware/request-id
+	e.Use(middleware.Logger())     	// https://echo.labstack.com/middleware/logger
+	e.Use(middleware.Recover())    	// https://echo.labstack.com/middleware/recover
+	e.Use(middleware.AddTrailingSlashWithConfig(middleware.TrailingSlashConfig {
+		// https://echo.labstack.com/middleware/trailing-slash
+		RedirectCode: http.StatusMovedPermanently,
+	}))
 
+	// Configure validation for PathQuery.
+	// https://echo.labstack.com/guide/request#validate-data
 	e.Validator = &PathQueryValidator{validator: validator.New()}
 
+	// POST /path
 	e.POST("/path", func(c echo.Context) (err error) {
 		pq := new(PathQuery)
 		if err = c.Bind(pq); err != nil {
