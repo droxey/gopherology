@@ -11,9 +11,9 @@ import (
 type (
 	// PathQuery represents a user date submission.
 	PathQuery struct {
-		Year int `json:"year" validate:"required"`
+		Year  int `json:"year" validate:"required"`
 		Month int `json:"month" validate:"required"`
-		Day int `json:"day" validate:"required"`
+		Day   int `json:"day" validate:"required"`
 	}
 
 	// PathQueryValidator ensures date inputs are valid.
@@ -27,10 +27,10 @@ func main() {
 	e := echo.New()
 
 	// Set up middlewares.
-	e.Use(middleware.RequestID()) 	// https://echo.labstack.com/middleware/request-id
-	e.Use(middleware.Logger())     	// https://echo.labstack.com/middleware/logger
-	e.Use(middleware.Recover())    	// https://echo.labstack.com/middleware/recover
-	e.Use(middleware.AddTrailingSlashWithConfig(middleware.TrailingSlashConfig {
+	e.Use(middleware.RequestID()) // https://echo.labstack.com/middleware/request-id
+	e.Use(middleware.Logger())    // https://echo.labstack.com/middleware/logger
+	e.Use(middleware.Recover())   // https://echo.labstack.com/middleware/recover
+	e.Use(middleware.AddTrailingSlashWithConfig(middleware.TrailingSlashConfig{
 		// https://echo.labstack.com/middleware/trailing-slash
 		RedirectCode: http.StatusMovedPermanently,
 	}))
