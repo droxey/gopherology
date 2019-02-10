@@ -27,8 +27,8 @@ func main() {
 	e.Use(middleware.Logger())
 	e.Use(middleware.Recover())
 
-	// Attach a POST route to endpoint named /path.
-	e.POST("/path", func(c echo.Context) (err error) {
+	// Attach a POST route to endpoint named /api/path.
+	e.POST("/api/path", func(c echo.Context) (err error) {
 		pq := &utils.PathQuery{}
 		if err = c.Bind(pq); err != nil {
 			return

@@ -2,15 +2,9 @@
 
 🔮 Go microservice that computes the numerological Life Path number for a given birthdate.
 
-## Start Server
+## Usage
 
-```bash
-$ export PORT=1324; go run main.go
-```
-
-## API
-
-### Invoke
+### POST `/api/path`: Life Path Number
 
 ```bash
 $ curl -X POST http://gopherology.herokuapp.com/api/path \
@@ -18,7 +12,7 @@ $ curl -X POST http://gopherology.herokuapp.com/api/path \
   -d '{"day":26,"month":6,"year":1988}'
 ```
 
-### Output
+### POST `/api/path`: Output
 
 ```json
 {
@@ -28,4 +22,10 @@ $ curl -X POST http://gopherology.herokuapp.com/api/path \
   "path": 22,
   "message": "Your Life Path Number is 22"
 }
+```
+
+## Development
+
+```bash
+$ export PORT=1324; go run main.go
 ```
