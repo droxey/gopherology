@@ -1,4 +1,4 @@
-package main
+package utils
 
 func sum(i uint64) (sum int) {
 	b64 := uint64(10)
