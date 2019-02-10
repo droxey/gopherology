@@ -5,13 +5,15 @@
 ## Start Server
 
 ```bash
-$ go run server.go
+$ export PORT=1324; go run main.go
 ```
 
-## Call API
+## API
+
+### Invoke
 
 ```bash
-$ curl -X POST http://localhost:1323/path \
+$ curl -X POST http://gopherology.herokuapp.com/api/path \
   -H 'Content-Type: application/json' \
   -d '{"day":26,"month":6,"year":1988}'
 ```
