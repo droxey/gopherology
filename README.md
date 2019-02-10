@@ -11,7 +11,7 @@ $ go run server.go
 ## Call API
 
 ```bash
-$ curl -X POST http://localhost:1234/path \
+$ curl -X POST http://localhost:1323/path \
   -H 'Content-Type: application/json' \
   -d '{"day":26,"month":6,"year":1988}'
 ```
