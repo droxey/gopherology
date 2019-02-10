@@ -1,11 +1,11 @@
 package main
 
 import (
+	"fmt"
 	"net/http"
 
 	"github.com/labstack/echo"
 	"github.com/labstack/echo/middleware"
-	"github.com/mattn/echo-livereload"
 	"gopkg.in/go-playground/validator.v9"
 )
 
@@ -15,33 +15,23 @@ type (
 		Year  uint64 `json:"year" validate:"required"`
 		Month uint64 `json:"month" validate:"required"`
 		Day   uint64 `json:"day" validate:"required"`
+		Path  int    `json:"path"`
+		Message string `json:"message"`
 	}
 
 	// PathQueryValidator ensures date inputs are valid.
 	PathQueryValidator struct {
 		validator *validator.Validate
 	}
-
-	Message struct {
-		Path int `json:"path"`
-	}
 )
 
 func main() {
-	// Instantiate Echo.
 	e := echo.New()
-
-	// Set up middlewares.
+	e.Validator = &PathQueryValidator{validator: validator.New()}
 	e.Use(middleware.RequestID()) // https://echo.labstack.com/middleware/request-id
 	e.Use(middleware.Logger())    // https://echo.labstack.com/middleware/logger
 	e.Use(middleware.Recover())   // https://echo.labstack.com/middleware/recover
-	e.Use(livereload.LiveReload())
 
-	// Configure validation for PathQuery.
-	// https://echo.labstack.com/guide/request#validate-data
-	e.Validator = &PathQueryValidator{validator: validator.New()}
-
-	// POST /path
 	e.POST("/path", func(c echo.Context) (err error) {
 		pq := &PathQuery{}
 		if err = c.Bind(pq); err != nil {
@@ -51,8 +41,9 @@ func main() {
 			return
 		}
 
-		final := CalculateLifePath(pq.Day, pq.Month, pq.Year)
-		return c.JSON(http.StatusOK, final)
+		pq.Path = CalculateLifePath(pq.Day, pq.Month, pq.Year)
+		pq.Message = "Your Life Path Number is " + fmt.Sprint(pq.Path)
+		return c.JSONPretty(http.StatusOK, pq, "  ")
 	})
 
 	e.Logger.Fatal(e.Start(":1234"))
@@ -63,8 +54,6 @@ func main() {
 func (cv *PathQueryValidator) Validate(i interface{}) error {
 	return cv.validator.Struct(i)
 }
-
-// Sum adds each digit of a number.
 func sum(i uint64) (sum int) {
 	b64 := uint64(10)
 	for ; i > 0; i /= b64 {
@@ -72,7 +61,6 @@ func sum(i uint64) (sum int) {
 	}
 	return
 }
-
 func total(i int) (total int) {
 	if i > 9 && i != 11 {
 		total = sum(uint64(i))
@@ -82,17 +70,12 @@ func total(i int) (total int) {
 	return total
 }
 
+// CalculateLifePath: Sum each individual date portion.
+// Sum again if a date portion is greater than 9 and does not equal 11.
+// Return the totals.
 func CalculateLifePath(d uint64, m uint64, y uint64) int {
-	// Step 1: Sum each individual date portion.
-	day := sum(d)
-	month := sum(m)
-	year := sum(y)
-
-	// Step 2: Sum again if a date portion is greater than 9 and does not equal 11.
-	day = total(day)
-	month = total(month)
-	year = total(year)
-
-	// Step 3: Add and return
+	day := total(sum(d))
+	month := total(sum(m))
+	year := total(sum(y))
 	return day + month + year
 }
