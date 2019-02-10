@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"net/http"
+	"os"
 
 	"github.com/droxey/gopherology/utils"
 
@@ -13,9 +14,14 @@ import (
 )
 
 func main() {
-	// Set up Echo, configure server side validation, and hook into middleware.
 	e := echo.New()
-	e.Server.Addr = ":1323"
+	port := os.Getenv("PORT")
+	if port == "" {
+			e.Logger.Fatal("$PORT must be set")
+	}
+
+	// Set up Echo, configure server side validation, and hook into middleware.
+	e.Server.Addr = ":" + port
 	e.Validator = &utils.PathQueryValidator{Validator: validator.New()}
 	e.Use(middleware.RequestID())
 	e.Use(middleware.Logger())
