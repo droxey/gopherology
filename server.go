@@ -25,6 +25,12 @@ type (
 	}
 )
 
+// Validate ensures data sent to the server is valid,
+// and informs the user of invalide submissions.
+func (cv *PathQueryValidator) Validate(i interface{}) error {
+	return cv.validator.Struct(i)
+}
+
 func main() {
 	e := echo.New()
 	e.Validator = &PathQueryValidator{validator: validator.New()}
@@ -49,11 +55,6 @@ func main() {
 	e.Logger.Fatal(e.Start(":1234"))
 }
 
-// Validate ensures data sent to the server is valid,
-// and informs the user of invalide submissions.
-func (cv *PathQueryValidator) Validate(i interface{}) error {
-	return cv.validator.Struct(i)
-}
 func sum(i uint64) (sum int) {
 	b64 := uint64(10)
 	for ; i > 0; i /= b64 {
@@ -67,12 +68,11 @@ func total(i int) (total int) {
 	} else {
 		total = i
 	}
-	return total
+	return
 }
 
-// CalculateLifePath: Sum each individual date portion.
-// Sum again if a date portion is greater than 9 and does not equal 11.
-// Return the totals.
+// CalculateLifePath sums each individual date portion, then
+// sums again if a date portion is greater than 9 and does not equal 11.
 func CalculateLifePath(d uint64, m uint64, y uint64) int {
 	day := total(sum(d))
 	month := total(sum(m))

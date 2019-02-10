@@ -14,6 +14,16 @@ $ go run server.go
 $ curl -X POST http://localhost:1234/path \
   -H 'Content-Type: application/json' \
   -d '{"day":26,"month":6,"year":1988}'
+```
 
-22
+### Output
+
+```json
+{
+  "year": 1988,
+  "month": 6,
+  "day": 26,
+  "path": 22,
+  "message": "Your Life Path Number is 22"
+}
 ```
