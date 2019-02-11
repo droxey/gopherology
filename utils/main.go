@@ -49,6 +49,9 @@ func process(i uint16) (sum int) {
 	for ; i > 0; i /= b64 {
 		sum += int(i % b64)
 	}
+	if sum == 10 {
+		sum = 1
+	}
 	return
 }
 
