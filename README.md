@@ -4,15 +4,17 @@
 
 ## Usage
 
-### POST `/api/path`: Life Path Number
+### `/api/path`
+
+#### Request
 
 ```bash
-$ curl -X POST http://gopherology.herokuapp.com/api/path \
+curl -X POST http://gopherology.herokuapp.com/api/path \
   -H 'Content-Type: application/json' \
   -d '{"day":26,"month":6,"year":1988}'
 ```
 
-### POST `/api/path`: Output
+#### Response
 
 ```json
 {
