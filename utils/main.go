@@ -30,9 +30,8 @@ func CalculateLifePath(d uint16, m uint16, y uint16) int {
 	day := total(sum(d))
 	month := total(sum(m))
 	year := total(sum(y))
-
-	println("Day", day, "Month", month, "Year", year)
 	final := (day + month + year)
+
 	if final == 11 || final == 22 || final == 33 {
 		return final
 	}
