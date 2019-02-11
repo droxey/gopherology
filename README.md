@@ -11,7 +11,7 @@
 ```bash
 curl -X POST https://gopherology.herokuapp.com/api/path \
   -H 'Content-Type: application/json' \
-  -d '{"day":29,"month":11,"year":1975}'
+  -d '{"day":26,"month":6,"year":1988}'
 ```
 
 #### Response
