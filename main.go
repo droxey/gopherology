@@ -39,7 +39,7 @@ func main() {
 		number := utils.CalculateLifePath(pq.Day, pq.Month, pq.Year)
 		url := fmt.Sprintf("https://www.tokenrock.com/numerology/my_life_path/?num=%d", number)
 		pr := &utils.PathResponse{Number: number, URL: url}
-		return c.JSON(http.StatusOK, pr)
+		return c.JSONPretty(http.StatusOK, pr, "  ")
 	})
 
 	// Gracefully shut down the server on interrupt.
