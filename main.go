@@ -17,7 +17,7 @@ func main() {
 	e := echo.New()
 	port := os.Getenv("PORT")
 	if port == "" {
-			e.Logger.Fatal("$PORT must be set")
+		e.Logger.Fatal("$PORT must be set")
 	}
 
 	// Set up Echo, configure server side validation, and hook into middleware.
@@ -36,9 +36,10 @@ func main() {
 		if err = c.Validate(pq); err != nil {
 			return
 		}
-		pq.Path = utils.CalculateLifePath(pq.Day, pq.Month, pq.Year)
-		pq.URL = "https://www.tokenrock.com/numerology/my_life_path/?num=" + fmt.Sprint(pq.Path)
-		return c.JSONPretty(http.StatusOK, pq, "  ")
+		number := utils.CalculateLifePath(pq.Day, pq.Month, pq.Year)
+		url := fmt.Sprintf("https://www.tokenrock.com/numerology/my_life_path/?num=%d", number)
+		pr := &utils.PathResponse{Number: number, URL: url}
+		return c.JSON(http.StatusOK, pr)
 	})
 
 	// Gracefully shut down the server on interrupt.

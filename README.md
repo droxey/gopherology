@@ -9,20 +9,17 @@
 #### Request
 
 ```bash
-curl -X POST http://gopherology.herokuapp.com/api/path \
+curl -X POST https://gopherology.herokuapp.com/api/path \
   -H 'Content-Type: application/json' \
-  -d '{"day":26,"month":6,"year":1988}'
+  -d '{"day":29,"month":11,"year":1975}'
 ```
 
 #### Response
 
 ```json
 {
-  "year": 1988,
-  "month": 6,
-  "day": 26,
-  "path": 22,
-  "message": "Your Life Path Number is 22"
+  "number": 8,
+  "more_info":" https://www.tokenrock.com/numerology/my_life_path/?num=8"
 }
 ```
 
