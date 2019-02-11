@@ -18,8 +18,8 @@ curl -X POST https://gopherology.herokuapp.com/api/path \
 
 ```json
 {
-  "number": 8,
-  "more_info":" https://www.tokenrock.com/numerology/my_life_path/?num=8"
+  "number": 22,
+  "more_info":" https://www.tokenrock.com/numerology/my_life_path/?num=22"
 }
 ```
 
