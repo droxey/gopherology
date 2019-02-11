@@ -5,11 +5,11 @@ import "github.com/go-playground/validator"
 type (
 	// PathQuery represents a user date submission.
 	PathQuery struct {
-		Year    uint16 `json:"year" validate:"required"`
-		Month   uint16 `json:"month" validate:"required"`
-		Day     uint16 `json:"day" validate:"required"`
-		Path    int    `json:"path"`
-		Message string `json:"message"`
+		Year  uint16 `json:"year" validate:"required"`
+		Month uint16 `json:"month" validate:"required"`
+		Day   uint16 `json:"day" validate:"required"`
+		Path  int    `json:"path"`
+		URL   string `json:"more_info"`
 	}
 
 	// PathQueryValidator ensures date inputs are valid.
@@ -24,8 +24,8 @@ func (cv *PathQueryValidator) Validate(i interface{}) error {
 	return cv.Validator.Struct(i)
 }
 
-// CalculateLifePath sums each individual date portion, then
-// sums again if a date portion is greater than 9 and does not equal 11.
+// CalculateLifePath sums each individual date portion to calculate
+// the user's life path number.
 func CalculateLifePath(d uint16, m uint16, y uint16) int {
 	day := total(sum(d))
 	month := total(sum(m))

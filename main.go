@@ -37,7 +37,7 @@ func main() {
 			return
 		}
 		pq.Path = utils.CalculateLifePath(pq.Day, pq.Month, pq.Year)
-		pq.Message = "Your Life Path Number is " + fmt.Sprint(pq.Path)
+		pq.URL = "https://www.tokenrock.com/numerology/my_life_path/?num=" + fmt.Sprint(pq.Path)
 		return c.JSONPretty(http.StatusOK, pq, "  ")
 	})
 
