@@ -10,7 +10,7 @@
 #### Request
 
 ```bash
-curl -X POST http://localhost:1234/api/path \
+curl -X POST https://gopherology.herokuapp.com \
   -H 'Content-Type: application/json' \
   -d '{"day":26,"month":6,"year":1988}'
 ```
