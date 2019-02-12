@@ -36,9 +36,9 @@ func main() {
 		if err = c.Validate(pq); err != nil {
 			return
 		}
-		number := utils.CalculateLifePath(pq.Day, pq.Month, pq.Year)
+		number, isMasterNumber := utils.CalculateLifePath(pq.Day, pq.Month, pq.Year)
 		url := fmt.Sprintf("https://www.tokenrock.com/numerology/my_life_path/?num=%d", number)
-		pr := &utils.PathResponse{Number: number, URL: url}
+		pr := &utils.PathResponse{PathNumber: number, URL: url, IsMasterNumber: isMasterNumber}
 		return c.JSONPretty(http.StatusOK, pr, "  ")
 	})
 

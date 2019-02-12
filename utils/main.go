@@ -12,8 +12,9 @@ type (
 
 	// PathResponse returns the path.
 	PathResponse struct {
-		Number int    `json:"number"`
-		URL    string `json:"more_info"`
+		PathNumber     int    `json:"pathNumber"`
+		URL            string `json:"detailsUrl"`
+		IsMasterNumber bool   `json:"isMasterNumber"`
 	}
 
 	// PathQueryValidator ensures date inputs are valid.
@@ -30,18 +31,18 @@ func (cv *PathQueryValidator) Validate(i interface{}) error {
 
 // CalculateLifePath sums each individual date portion to calculate
 // the user's life path number.
-func CalculateLifePath(d uint16, m uint16, y uint16) int {
-	day := total(d)
-	month := total(m)
-	year := total(y)
-	final := (day + month + year)
-	if final == 11 || final == 22 || final == 33 {
-		return final
+func CalculateLifePath(d uint16, m uint16, y uint16) (int, bool) {
+	pathResult := (numerology(d) + numerology(m) + numerology(y))
+	isMasterNumber := pathResult%11 == 0
+	if isMasterNumber {
+		return pathResult, isMasterNumber
 	}
-	return total(uint16(final))
+	return numerology(uint16(pathResult)), isMasterNumber
 }
 
-func process(i uint16) (sum int) {
+// Recursive function. Applys numerological rules when adding dates.
+// If sum isn't a master number, call numerology a final time to sum double-digit ints.
+func numerology(i uint16) (sum int) {
 	if i < 10 {
 		return int(i)
 	}
@@ -49,16 +50,8 @@ func process(i uint16) (sum int) {
 	for ; i > 0; i /= b64 {
 		sum += int(i % b64)
 	}
-	if sum == 10 {
-		sum = 1
-	}
-	return
-}
-
-func total(i uint16) (sum int) {
-	sum = process(i)
 	if sum > 9 {
-		sum = process(uint16(sum))
+		return numerology(uint16(sum))
 	}
 	return
 }
