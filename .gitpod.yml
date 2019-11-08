@@ -1,3 +1,8 @@
+tasks:
+  - init: export PORT=1324; go run main.go
+    openIn: left
+  - command: curl -X POST http://localhost:1324/api/path -H 'Content-Type: application/json' -d '{"day": 26, "month": 6, "year": 1988}'
+    openIn: right
 github:
   prebuilds:
     master: true
