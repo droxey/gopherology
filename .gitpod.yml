@@ -1,0 +1,7 @@
+github:
+  prebuilds:
+    master: true
+    branches: true
+    addComment: true
+    addBadge: true
+    pullRequests: true
