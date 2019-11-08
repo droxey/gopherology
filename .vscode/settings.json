@@ -1,0 +1,4 @@
+{
+  "go.coverOnTestPackage": false,
+  "go.inferGopath": false
+}
