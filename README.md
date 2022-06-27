@@ -1,5 +1,5 @@
 # gopherology
-[![Go Report Card](https://goreportcard.com/badge/github.com/droxey/gopherology)]
+![Go Report Card](https://goreportcard.com/badge/github.com/droxey/gopherology)
 
 🔮 Go microservice that recursively computes a numerological Life Path number for a given birthdate.
 
