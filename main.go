@@ -1,3 +1,4 @@
+// Package main provides functions to start the Gopherology API server.
 package main
 
 import (

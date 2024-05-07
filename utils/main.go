@@ -1,3 +1,4 @@
+// Package utils provides functions for calculating the life path number of any individual given a date of birth.
 package utils
 
 import "github.com/go-playground/validator"
@@ -24,7 +25,7 @@ type (
 )
 
 // Validate ensures data sent to the server is valid,
-// and informs the user of invalide submissions.
+// and informs the user of invalid submissions.
 func (cv *PathQueryValidator) Validate(i interface{}) error {
 	return cv.Validator.Struct(i)
 }
