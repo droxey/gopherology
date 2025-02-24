@@ -41,7 +41,7 @@ func CalculateLifePath(d uint16, m uint16, y uint16) (int, bool) {
 	return numerology(uint16(pathResult)), isMasterNumber
 }
 
-// Recursive function. Applys numerological rules when adding dates.
+// Private recursive function. Applies numerological rules when adding dates.
 // If sum isn't a master number, call numerology a final time to sum double-digit ints.
 func numerology(i uint16) (sum int) {
 	if i < 10 {
